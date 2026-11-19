@@ -156,9 +156,40 @@ public class RegAndLogin {
                 System.out.println("\nTotal messages sent: " + new Message("", "", 0).returnTotalMessages());
 
             } else if (option == 2) {
-                //OPTION 2: Feature for Part 3, this is currently a place holder as part 2 says
-                System.out.println("Coming Soon");
-            }
+    // ===== PART 3 =====
+    MessageManager manager = new MessageManager();
+    manager.populateTestData();
+    System.out.println("Test data loaded: " + manager.count + " messages");
+
+    int part3Choice = 0;
+    do {
+        System.out.println("\n--- PART 3 MENU ---");
+        System.out.println("1) Display all sent messages (Report)");
+        System.out.println("2) Display longest message");
+        System.out.println("3) Search by recipient");
+        System.out.println("4) Delete by message hash");
+        System.out.println("5) Read stored messages from JSON");
+        System.out.println("6) Back to Main Menu");
+        System.out.print("Choose: ");
+        try { part3Choice = Integer.parseInt(input.nextLine()); } catch (Exception e) { part3Choice = 0; }
+
+        if (part3Choice == 1) {
+            System.out.println(manager.displayReport());
+        } else if (part3Choice == 2) {
+            System.out.println(manager.displayLongestMessage());
+        } else if (part3Choice == 3) {
+            System.out.print("Enter recipient (+27...): ");
+            String searchRec = input.nextLine();
+            System.out.println(manager.searchByRecipient(searchRec));
+        } else if (part3Choice == 4) {
+            System.out.print("Enter message hash to delete: ");
+            String hash = input.nextLine();
+            System.out.println(manager.deleteByHash(hash));
+        } else if (part3Choice == 5) {
+            System.out.println(manager.readFromJSON());
+        }
+    } while (part3Choice != 6);
+}
 
         } while (option != 3); //Keep looping untol the user selects Quit
 
